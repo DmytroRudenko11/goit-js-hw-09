@@ -63,9 +63,10 @@ startBtn.addEventListener('click', startTimer);
 function startTimer(e) {
   let timeDiff = 0;
   let timerId = 0;
-  myDateInMs = myDate.selectedDates[0].getTime();
+  const myDateInMs = myDate.selectedDates[0].getTime();
 
   timerId = setInterval(() => {
+    Notiflix.Loading.standard('Be patient');
     const currentTime = Date.now();
 
     timeDiff = myDateInMs - currentTime;
@@ -76,6 +77,8 @@ function startTimer(e) {
     startBtn.disabled = true;
 
     if (timeDiff <= 995) {
+      Notiflix.Loading.remove();
+      Notiflix.Notify.info('You were patient enough');
       clearInterval(timerId);
     }
   }, 1000);

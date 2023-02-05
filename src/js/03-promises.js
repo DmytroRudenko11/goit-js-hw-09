@@ -25,6 +25,16 @@ function dataHandler(e) {
     elements: { delay, step, amount },
   } = e.currentTarget;
 
+  if (Number(delay.value) < 0) {
+    return Notiflix.Notify.failure(
+      'Value for first step should be positive or equal 0!'
+    );
+  } else if (0 >= Number(amount.value)) {
+    return Notiflix.Notify.failure(
+      'Amount of promises should be higher then 0!'
+    );
+  }
+
   for (let i = 0; i <= Number(amount.value) - 1; i++) {
     currentDelay = Number(delay.value) + Number(step.value) * i;
     console.log(
