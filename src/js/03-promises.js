@@ -13,12 +13,10 @@ function dataHandler(e) {
 
   if (delay < 0) {
     return Notiflix.Notify.failure(
-      'Value for first step should be positive or equal 0!'
+      'Value for first step could not be negative!'
     );
-  } else if (0 >= amount) {
-    return Notiflix.Notify.failure(
-      'Amount of promises should be higher then 0!'
-    );
+  } else if (amount < 0) {
+    return Notiflix.Notify.failure('Amount of promises could not be negative!');
   }
 
   for (let i = 0; i < amount; i++) {
