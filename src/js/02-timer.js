@@ -52,7 +52,6 @@ const options = {
       'Please choose a date in the future',
       'Ok'
     );
-    // window.alert('Please choose a date in the future');
   },
 };
 
@@ -66,8 +65,12 @@ function startTimer(e) {
   const myDateInMs = myDate.selectedDates[0].getTime();
 
   timerId = setInterval(() => {
-    Notiflix.Loading.standard('Be patient');
     const currentTime = Date.now();
+    if (myDateInMs <= currentTime) {
+      Notiflix.Notify.warning('Choose time again, it has already run out');
+      clearInterval(timerId);
+      return;
+    }
 
     timeDiff = myDateInMs - currentTime;
     const timerSetting = convertMs(timeDiff);
@@ -77,7 +80,6 @@ function startTimer(e) {
     startBtn.disabled = true;
 
     if (timeDiff <= 995) {
-      Notiflix.Loading.remove();
       Notiflix.Notify.info('You were patient enough');
       clearInterval(timerId);
     }
